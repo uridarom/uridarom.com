@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const allProjects = await getCollection('projects');
+const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
+---
+<PageLayout title="Projects" activePage="projects">
+  <div class="px-6 pb-24">
+    <h1
+      class="text-white text-center font-bold mt-14 mb-12"
+      style="font-family: var(--font-serif); font-size: clamp(1.8rem, 3vw, 2.4rem);"
+    >
+      Projects
+    </h1>
+
+    <div>
+      {projects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+  </div>
+</PageLayout>

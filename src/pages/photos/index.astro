@@ -1,0 +1,47 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import SectionToggle from '../../components/SectionToggle.astro';
+import MasonryGrid from '../../components/MasonryGrid.astro';
+import { getCollection } from 'astro:content';
+
+const allPhotos = await getCollection('photos');
+// Sort newest first
+const photos = allPhotos.sort((a, b) => {
+  return (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0);
+});
+---
+<PageLayout title="Photos" activePage="photos">
+  <SectionToggle />
+  <MasonryGrid photos={photos} />
+</PageLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-category]');
+  const items = document.querySelectorAll<HTMLElement>('#masonry-grid [data-category]');
+
+  let activeCategory = 'photography';
+
+  function setCategory(category: string) {
+    activeCategory = category;
+
+    buttons.forEach((btn) => {
+      const isActive = btn.dataset.category === category;
+      btn.classList.toggle('font-bold', isActive);
+      btn.classList.toggle('font-normal', !isActive);
+      btn.style.opacity = isActive ? '1' : '0.4';
+    });
+
+    items.forEach((item) => {
+      item.style.display = item.dataset.category === category ? 'block' : 'none';
+    });
+  }
+
+  // Initialize
+  setCategory(activeCategory);
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.category) setCategory(btn.dataset.category);
+    });
+  });
+</script>

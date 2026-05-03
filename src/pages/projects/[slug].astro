@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+<PageLayout title={project.data.title} activePage="projects">
+  <div class="flex flex-col items-center px-6 pb-24">
+    <!-- Title -->
+    <h1
+      class="text-white text-center font-bold mt-12 mb-10"
+      style="font-family: var(--font-serif); font-size: clamp(1.6rem, 3vw, 2.2rem);"
+    >
+      {project.data.title}
+    </h1>
+
+    <!-- Content -->
+    <div
+      class="project-content text-white w-full"
+      style="max-width: 640px; font-family: var(--font-sans);"
+    >
+      <Content />
+    </div>
+  </div>
+</PageLayout>
+
+<style>
+  /* Style the rendered markdown content */
+  .project-content h2 {
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-top: 3.5rem;
+    margin-bottom: 1rem;
+    opacity: 1;
+  }
+  .project-content p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+    opacity: 0.88;
+    text-align: left;
+  }
+  .project-content ol {
+    list-style: decimal;
+    padding-left: 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    opacity: 0.88;
+  }
+  .project-content img {
+    float: right;
+    max-width: 40%;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+  }
+  .project-content img + em {
+    /* caption: image immediately followed by italic text */
+    display: block;
+    text-align: right;
+    font-size: 0.72rem;
+    opacity: 0.5;
+    margin-top: 0.25rem;
+    font-style: normal;
+  }
+</style>

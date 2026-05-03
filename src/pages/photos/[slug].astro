@@ -1,0 +1,69 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import PageLayout from '../../layouts/PageLayout.astro';
+
+export async function getStaticPaths() {
+  const photos = await getCollection('photos');
+  return photos.map((photo) => ({
+    params: { slug: photo.slug },
+    props: { photo },
+  }));
+}
+
+const { photo } = Astro.props;
+const { title, image, acquisition, creative } = photo.data;
+---
+<PageLayout title={title} activePage="photos">
+  <div class="flex flex-col items-center px-6 pb-24">
+    <!-- Title -->
+    <h1
+      class="text-white text-center mt-12 mb-8"
+      style="font-family: var(--font-serif); font-size: clamp(1.6rem, 3vw, 2.2rem);"
+    >
+      {title}
+    </h1>
+
+    <!-- Primary Image -->
+    <div style="width: clamp(60%, 70vw, 900px);">
+      <Image
+        src={image}
+        alt={title}
+        widths={[800, 1200, 1800]}
+        sizes="(max-width: 768px) 90vw, 70vw"
+        class="w-full block"
+        loading="eager"
+      />
+    </div>
+
+    <!-- Text Content -->
+    <div
+      class="mt-12 text-white"
+      style="width: clamp(60%, 70vw, 900px); font-family: var(--font-sans);"
+    >
+      {acquisition && (
+        <section class="mb-10">
+          <h2
+            class="font-bold text-white mb-4"
+            style="font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;"
+          >
+            Acquisition
+          </h2>
+          <p class="text-sm leading-7 opacity-90">{acquisition}</p>
+        </section>
+      )}
+
+      {creative && (
+        <section class="mb-10">
+          <h2
+            class="font-bold text-white mb-4"
+            style="font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;"
+          >
+            Creative Choices
+          </h2>
+          <p class="text-sm leading-7 opacity-90">{creative}</p>
+        </section>
+      )}
+    </div>
+  </div>
+</PageLayout>

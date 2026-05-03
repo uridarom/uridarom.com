@@ -1,0 +1,20 @@
+---
+// This is a pure HTML component. The active state is toggled by JS on the gallery page.
+---
+<div class="flex items-center justify-center gap-4 py-10 text-sm font-bold" style="font-family: var(--font-sans)">
+  <button
+    id="toggle-photography"
+    data-category="photography"
+    class="text-white transition-opacity duration-200"
+  >
+    Photography
+  </button>
+  <span class="text-white opacity-30 select-none">•</span>
+  <button
+    id="toggle-astro"
+    data-category="astrophotography"
+    class="text-white opacity-40 font-normal transition-opacity duration-200"
+  >
+    Astrophotography
+  </button>
+</div>

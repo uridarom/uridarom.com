@@ -1,0 +1,33 @@
+---
+interface Props {
+  activePage?: 'photos' | 'projects' | 'about';
+}
+const { activePage } = Astro.props;
+
+const navItems = [
+  { label: 'Photos', href: '/photos', key: 'photos' },
+  { label: 'Projects', href: '/projects', key: 'projects' },
+  { label: 'About', href: '/about', key: 'about' },
+] as const;
+---
+<header class="fixed top-0 left-0 right-0 z-50 bg-black h-16 flex items-center px-8">
+  <nav class="flex items-center gap-3 text-sm" style="font-family: var(--font-sans)">
+    <a href="/" class="text-white mr-2" style="font-family: var(--font-serif); font-size: 1.1rem;">
+      My Name
+    </a>
+    {navItems.map((item, i) => (
+      <>
+        {i > 0 && <span class="text-white opacity-50 select-none">•</span>}
+        <a
+          href={item.href}
+          class:list={[
+            'text-white hover:opacity-70 transition-opacity duration-200',
+            activePage === item.key ? 'font-bold' : 'font-normal',
+          ]}
+        >
+          {item.label}
+        </a>
+      </>
+    ))}
+  </nav>
+</header>

@@ -1,0 +1,17 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  activePage?: 'photos' | 'projects' | 'about';
+}
+const { title, description, activePage } = Astro.props;
+---
+<BaseLayout title={title} description={description}>
+  <Nav activePage={activePage} />
+  <main class="pt-16">
+    <slot />
+  </main>
+</BaseLayout>

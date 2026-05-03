@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const navItems = [
+  { label: 'Photos', href: '/photos' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'About', href: '/about' },
+];
+---
+<BaseLayout title="Home">
+  <div class="min-h-screen flex flex-col items-center justify-center bg-black">
+    <h1
+      class="text-white font-bold tracking-tight"
+      style="font-family: var(--font-serif); font-size: clamp(2.8rem, 6vw, 5rem);"
+    >
+      My Name
+    </h1>
+    <nav
+      class="flex items-center gap-3 mt-6 text-sm text-white"
+      style="font-family: var(--font-sans);"
+    >
+      {navItems.map((item, i) => (
+        <>
+          {i > 0 && <span class="opacity-40 select-none">•</span>}
+          <a href={item.href} class="hover:opacity-60 transition-opacity duration-200">
+            {item.label}
+          </a>
+        </>
+      ))}
+    </nav>
+  </div>
+</BaseLayout>

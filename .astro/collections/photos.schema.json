@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "photography",
+        "astrophotography"
+      ]
+    },
+    "image": {
+      "type": "string"
+    },
+    "thumbAspect": {
+      "default": "landscape",
+      "type": "string",
+      "enum": [
+        "landscape",
+        "portrait",
+        "square"
+      ]
+    },
+    "acquisition": {
+      "type": "string"
+    },
+    "creative": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "featured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "category",
+    "image"
+  ]
+}
