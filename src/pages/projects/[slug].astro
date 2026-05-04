@@ -18,7 +18,7 @@ const { Content } = await render(project);
     <!-- Title -->
     <h1
       class="text-white text-center font-bold mt-12 mb-10"
-      style="font-size: clamp(1.6rem, 3vw, 2.2rem);"
+      style="font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 6rem;"
     >
       {project.data.title}
     </h1>
@@ -34,38 +34,45 @@ const { Content } = await render(project);
 </PageLayout>
 
 <style>
-  /* Style the rendered markdown content */
-  .project-content h2 {
+  :global(.project-content h2) {
     font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
+    font-size: 1.3rem;
     text-transform: uppercase;
-    margin-top: 3.5rem;
     margin-bottom: 1rem;
     opacity: 1
   }
-  .project-content p {
-    font-size: 0.9rem;
-    line-height: 1.8;
+  :global(.project-content p) {
+    font-size: 1.1rem;
     margin-bottom: 1.2rem;
+    line-height: 1.3;
+    opacity: 0.88;
+    text-align: left;
+    white-space: pre-line
+  }
+  :global(.project-content ol) {
+    padding-left: 3rem;
+    list-style: decimal;
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
     opacity: 0.88;
     text-align: left;
   }
-  .project-content ol {
-    list-style: decimal;
-    padding-left: 1.5rem;
-    font-size: 0.9rem;
-    line-height: 1.8;
-    opacity: 0.88;
+  :global(.project-content ul) {
+    padding-left: 3rem;
+    list-style: disc;
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+    text-align: left;
   }
-  .project-content img {
+  :global(.project-content img) {
     float: right;
     max-width: 40%;
     margin-left: 2rem;
     margin-bottom: 1rem;
   }
-  .project-content img + em {
-    /* caption: image immediately followed by italic text */
+  :global(.project-content img + em) {
     display: block;
     text-align: right;
     font-size: 0.72rem;

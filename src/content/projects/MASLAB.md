@@ -14,7 +14,7 @@ This is a sample project to demonstrate the project detail page layout. Replace 
 
 Add as many sections as needed. Each `##` heading becomes a styled section heading with uppercase letter-spacing.
 
-## GALLERY
+## THE SETTINGS
 
 Include images inline with markdown. They will float right with captions in smaller text.
 
