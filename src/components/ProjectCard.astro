@@ -8,7 +8,7 @@ const { project } = Astro.props;
 ---
 <a
   href={`/projects/${project.id.split('/').pop()}`}
-  class="block max-w-2xl mx-auto mb-4 rounded-sm bg-[#121212] hover:bg-[#1c1c1c] transition-colors duration-200 p-7"
+  class="block max-w-2xl mx-auto mb-2 rounded-md bg-[#121212] hover:bg-[#1c1c1c] transition-colors duration-100 p-5"
  >
   <p class="font-bold text-white text-base">{project.data.title}</p>
   <p class="text-white text-sm mt-2 opacity-80 leading-relaxed">{project.data.description}</p>
