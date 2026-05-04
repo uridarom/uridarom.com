@@ -9,14 +9,14 @@ const { photos } = Astro.props;
 ---
 <div
   id="masonry-grid"
-  style="columns: 3; column-gap: var(--gutter);"
+  style="columns: 3; column-gap: 6px;"
   class="w-full"
 >
   {photos.map((photo) => (
     <a
       href={`/photos/${photo.slug}`}
       data-category={photo.data.category}
-      style="display: block; break-inside: avoid; margin-bottom: var(--gutter);"
+      style="display: block; break-inside: avoid; margin-bottom: 6px;"
       class="group"
     >
       <Image

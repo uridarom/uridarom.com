@@ -1,31 +1,6 @@
-@import '@fontsource/faustina/400.css';
-@import '@fontsource/faustina/700.css';
-@import '@fontsource/dm-sans/300.css';
-@import '@fontsource/dm-sans/400.css';
-@import '@fontsource/dm-sans/700.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-:root {
-  --font-serif: 'Faustina', Georgia, serif;
-  --color-bg: #201919;
-  --color-text: #ffffff;
-  --color-muted: rgba(255, 255, 255, 0.45);
-  --color-card: #121212;
-  --gutter: 6px;
-}
-
-html, body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  scroll-behavior: smooth;
-}
-
-/* Utility classes for font families */
-.font-serif { font-family: var(--font-serif); }
-.font-sans  { font-family: var(--font-sans); }
 
 @media (max-width: 768px) {
   #masonry-grid {
