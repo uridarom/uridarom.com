@@ -6,7 +6,7 @@ import PageLayout from '../../layouts/PageLayout.astro';
 export async function getStaticPaths() {
   const photos = await getCollection('photos');
   return photos.map((photo) => ({
-    params: { slug: photo.slug },
+    params: { slug: photo.id.split('/').pop() },
     props: { photo },
   }));
 }

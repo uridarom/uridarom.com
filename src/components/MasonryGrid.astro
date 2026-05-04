@@ -14,9 +14,9 @@ const { photos } = Astro.props;
 >
   {photos.map((photo) => (
     <a
-      href={`/photos/${photo.slug}`}
+      href={`/photos/${photo.id.split('/').pop()}`}
       data-category={photo.data.category}
-      style="display: block; break-inside: avoid; margin-bottom: 6px;"
+      style="display: block; break-inside: avoid; padding-bottom: 6px;"
       class="group"
     >
       <Image
