@@ -3,6 +3,7 @@ title: "iHDR Script"
 description: "A Pixinsight plug in designed for compressing the dynamic range of astro-images.\nAllows for the display of both bright and faint features while retaining contrast in both."
 date: 2025-02-01
 order: 1
+image: /assets/photos/project_icons/iHDR.jpeg
 ---
 
 ## INTRODUCTION

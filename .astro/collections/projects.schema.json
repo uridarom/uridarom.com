@@ -13,8 +13,10 @@
       "format": "date-time"
     },
     "order": {
-      "default": 99,
       "type": "number"
+    },
+    "image": {
+      "type": "string"
     },
     "$schema": {
       "type": "string"

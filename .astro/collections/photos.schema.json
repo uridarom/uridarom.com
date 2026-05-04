@@ -6,23 +6,14 @@
       "type": "string"
     },
     "category": {
-      "type": "string",
-      "enum": [
-        "photography",
-        "astrophotography"
-      ]
+      "type": "string"
     },
     "image": {
       "type": "string"
     },
-    "thumbAspect": {
-      "default": "landscape",
+    "date": {
       "type": "string",
-      "enum": [
-        "landscape",
-        "portrait",
-        "square"
-      ]
+      "format": "date-time"
     },
     "acquisition": {
       "type": "string"
@@ -30,21 +21,11 @@
     "creative": {
       "type": "string"
     },
-    "date": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "featured": {
-      "default": false,
-      "type": "boolean"
-    },
     "$schema": {
       "type": "string"
     }
   },
   "required": [
-    "title",
-    "category",
-    "image"
+    "title"
   ]
 }
