@@ -24,8 +24,9 @@ const { title, image, acquisition, creative } = photo.data;
       {title}
     </h1>
 
-    <!-- Primary Image -->
-    <div style="width: clamp(60%, 70vw, 900px);">
+  <!-- Primary Image -->
+  <div style="width: clamp(60%, 70vw, 900px);">
+    <a href={image.src} target="_blank" rel="noopener noreferrer">
       <Image
         src={image}
         alt={title}
@@ -34,7 +35,8 @@ const { title, image, acquisition, creative } = photo.data;
         class="w-full block"
         loading="eager"
       />
-    </div>
+    </a>
+  </div>
 
     <!-- Text Content -->
     <div
