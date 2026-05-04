@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -12,15 +13,17 @@ const { project } = Astro.props;
  >
   <div class="flex items-center gap-4">
     {project.data.image && (
-      <img
+      <Image
         src={project.data.image}
         alt={project.data.title}
-        class="w-24 h-24 flex-shrink-0 rounded-md object-cover"
+        width={96}
+        height={96}
+        class="flex-shrink-0 rounded-md object-cover"
       />
     )}
     <div>
       <p class="font-bold text-white text-base">{project.data.title}</p>
-      <p class="text-white text-sm mt-2 opacity-80 leading-relaxed">{project.data.description}</p>
+      <p class="text-white text-sm mt-2 opacity-80 leading-relaxed" style="white-space: pre-line">{project.data.description}</p>
     </div>
   </div>
 </a>

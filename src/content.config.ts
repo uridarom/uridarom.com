@@ -15,12 +15,12 @@ const photos = defineCollection({
 });
 
 const projects = defineCollection({
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
     date: z.date(),
     order: z.number().optional(),
-    image: z.string().optional(),
+    image: image().optional(),
   }),
   loader: glob({ base: './src/content/projects', pattern: '**/*.md' }),
 });
