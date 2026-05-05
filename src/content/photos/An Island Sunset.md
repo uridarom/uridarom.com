@@ -1,5 +1,5 @@
 ---
-title: "An Island Sunset - 2025-06-01"
+title: "An Island Sunset"
 category: photography
 image: ../../assets/photos/photography/An Island Sunset.jpg
 date: 2025-06-01

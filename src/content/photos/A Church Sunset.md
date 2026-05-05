@@ -1,5 +1,5 @@
 ---
-title: "A Church Sunset - 2025-07-08"
+title: "A Church Sunset"
 category: photography
 image: ../../assets/photos/photography/A Church Sunset.jpg
 date: 2025-07-08

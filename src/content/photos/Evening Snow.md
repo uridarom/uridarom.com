@@ -1,5 +1,5 @@
 ---
-title: "Evening Snow - 2026-01-25"
+title: "Evening Snow"
 category: photography
 image: ../../assets/photos/photography/Evening Snow.jpg
 date: 2026-01-25

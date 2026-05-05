@@ -1,5 +1,5 @@
 ---
-title: "Maroon Bells 6 - 2025-07-28"
+title: "Maroon Bells 6"
 category: photography
 image: ../../assets/photos/photography/Maroon Bells 6.jpg
 date: 2025-07-28

@@ -1,5 +1,5 @@
 ---
-title: "Across the Block - 2025-08-16"
+title: "Across the Block"
 category: photography
 image: ../../assets/photos/photography/Across the Block.jpg
 date: 2025-08-16

@@ -1,5 +1,5 @@
 ---
-title: "Mountains - 2025-07-28"
+title: "Mountains"
 category: photography
 image: ../../assets/photos/photography/Mountains.jpg
 date: 2025-07-28

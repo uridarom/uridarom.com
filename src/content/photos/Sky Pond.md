@@ -1,5 +1,5 @@
 ---
-title: "Sky Pond - 2025-07-27"
+title: "Sky Pond"
 category: photography
 image: ../../assets/photos/photography/Sky Pond.jpg
 date: 2025-07-27

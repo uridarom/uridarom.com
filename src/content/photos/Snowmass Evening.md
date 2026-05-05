@@ -1,5 +1,5 @@
 ---
-title: "Snowmass Evening - 2025-07-27"
+title: "Snowmass Evening"
 category: photography
 image: ../../assets/photos/photography/Snowmass Evening.jpg
 date: 2025-07-27

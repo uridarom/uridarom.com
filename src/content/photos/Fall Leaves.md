@@ -1,5 +1,5 @@
 ---
-title: "Fall Leaves - 2025-11-01"
+title: "Fall Leaves"
 category: photography
 image: ../../assets/photos/photography/Fall Leaves.jpg
 date: 2025-11-01

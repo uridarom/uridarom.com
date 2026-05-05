@@ -1,5 +1,5 @@
 ---
-title: "Metal-on-Metal - 2025-05-02"
+title: "Metal-on-Metal"
 category: photography
 image: ../../assets/photos/photography/Metal-on-Metal.jpg
 date: 2025-05-02

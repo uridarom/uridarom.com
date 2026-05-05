@@ -1,5 +1,5 @@
 ---
-title: "City Sunset 03 - 2025-11-01"
+title: "City Sunset 03"
 category: photography
 image: ../../assets/photos/photography/City Sunset 03.jpg
 date: 2025-11-01

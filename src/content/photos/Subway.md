@@ -1,5 +1,5 @@
 ---
-title: "Subway - 2025-07-08"
+title: "Subway"
 category: photography
 image: ../../assets/photos/photography/Subway.jpg
 date: 2025-07-08

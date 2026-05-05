@@ -1,5 +1,5 @@
 ---
-title: "Lightning 2 - 2025-07-01"
+title: "Lightning 2"
 category: photography
 image: ../../assets/photos/photography/Lightning 2.jpg
 date: 2025-07-01

@@ -1,5 +1,5 @@
 ---
-title: "Alpine River - 2025-07-26"
+title: "Alpine River"
 category: photography
 image: ../../assets/photos/photography/Alpine River.jpg
 date: 2025-07-26

@@ -18,11 +18,14 @@ const { project } = Astro.props;
         alt={project.data.title}
         width={96}
         height={96}
-        class="flex-shrink-0 rounded-md object-cover"
+        class="flex-shrink-0 rounded-md object-cover hidden sm:block"
       />
     )}
-    <div>
-      <p class="font-bold text-white text-base">{project.data.title}</p>
+    <div class="project-text">
+      <div class="flex gap-2 items-center">
+        <p class="font-bold text-white text-base">{project.data.title}</p>
+        <p class="opacity-50"> - {project.data.date.toISOString().split('T')[0]}</p>
+      </div>
       <p class="text-white text-sm mt-2 opacity-80 leading-relaxed" style="white-space: pre-line">{project.data.description}</p>
     </div>
   </div>

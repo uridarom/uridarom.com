@@ -1,5 +1,5 @@
 ---
-title: "Campus Sunset - 2026-05-02"
+title: "Campus Sunset"
 category: photography
 image: ../../assets/photos/photography/Campus Sunset.jpg
 date: 2026-05-02

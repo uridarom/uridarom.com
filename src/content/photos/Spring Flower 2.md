@@ -1,5 +1,5 @@
 ---
-title: "Spring Flower 2 - 2025-04-22"
+title: "Spring Flower 2"
 category: photography
 image: ../../assets/photos/photography/Spring Flower 2.jpg
 date: 2025-04-22

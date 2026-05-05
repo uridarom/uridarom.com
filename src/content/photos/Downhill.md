@@ -1,5 +1,5 @@
 ---
-title: "Downhill - 2025-07-26"
+title: "Downhill"
 category: photography
 image: ../../assets/photos/photography/Downhill.jpg
 date: 2025-07-26

@@ -1,5 +1,5 @@
 ---
-title: "Snowflake - 2026-01-26"
+title: "Snowflake"
 category: photography
 image: ../../assets/photos/photography/Snowflake.jpg
 date: 2026-01-26

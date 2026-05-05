@@ -1,5 +1,5 @@
 ---
-title: "Field Sunset - 2025-07-17"
+title: "Field Sunset"
 category: photography
 image: ../../assets/photos/photography/Field Sunset.jpg
 date: 2025-07-17

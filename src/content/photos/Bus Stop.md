@@ -1,5 +1,5 @@
 ---
-title: "Bus Stop - 2026-01-25"
+title: "Bus Stop"
 category: photography
 image: ../../assets/photos/photography/Bus Stop.jpg
 date: 2026-01-25

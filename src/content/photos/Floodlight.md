@@ -1,5 +1,5 @@
 ---
-title: "Floodlight - 2026-01-05"
+title: "Floodlight"
 category: photography
 image: ../../assets/photos/photography/Floodlight.jpg
 date: 2026-01-05

@@ -1,5 +1,5 @@
 ---
-title: "Campus - 2025-11-01"
+title: "Campus"
 category: photography
 image: ../../assets/photos/photography/Campus.jpg
 date: 2025-11-01

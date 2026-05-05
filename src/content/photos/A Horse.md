@@ -1,5 +1,5 @@
 ---
-title: "A Horse - 2025-07-28"
+title: "A Horse"
 category: photography
 image: ../../assets/photos/photography/A Horse.jpg
 date: 2025-07-28

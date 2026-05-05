@@ -1,5 +1,5 @@
 ---
-title: "Bear Lake - 2025-07-25"
+title: "Bear Lake"
 category: photography
 image: ../../assets/photos/photography/Bear Lake.jpg
 date: 2025-07-25

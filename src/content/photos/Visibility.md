@@ -1,5 +1,5 @@
 ---
-title: "Visibility - 2026-01-25"
+title: "Visibility"
 category: photography
 image: ../../assets/photos/photography/Visibility.jpg
 date: 2026-01-25

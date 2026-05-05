@@ -1,5 +1,5 @@
 ---
-title: "Light From Above - 2026-01-19"
+title: "Light From Above"
 category: photography
 image: ../../assets/photos/photography/Light From Above.jpg
 date: 2026-01-19

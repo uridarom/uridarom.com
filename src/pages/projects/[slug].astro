@@ -50,13 +50,13 @@ const { Content } = await render(project);
     white-space: pre-line
   }
   :global(.project-content ol) {
-    padding-left: 3rem;
+    padding-left: clamp(1.5rem, 3vw, 3rem);
     list-style: decimal;
     font-size: 1.1rem;
     margin-bottom: 1.2rem;
     line-height: 1.5;
-    opacity: 0.88;
     text-align: left;
+    overflow-wrap: break-word;
   }
   :global(.project-content ul) {
     padding-left: 3rem;
@@ -67,17 +67,41 @@ const { Content } = await render(project);
     text-align: left;
   }
   :global(.project-content img) {
-    float: right;
-    max-width: 40%;
-    margin-left: 2rem;
-    margin-bottom: 1rem;
+    padding-top: 1rem;
+    display: block;
+    margin: 0 auto;
   }
   :global(.project-content img + em) {
     display: block;
-    text-align: right;
-    font-size: 0.72rem;
+    text-align: center;
+    font-size: 0.9rem;
     opacity: 0.5;
-    margin-top: 0.25rem;
+    margin-top: -0.6rem;
     font-style: normal;
+    white-space: pre-line
+  }
+  :global(.project-content .columns) {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+  :global(.project-content .column) {
+    flex: 1;
+  }
+  @media (max-width: 600px) {
+    :global(.project-content .columns) {
+      flex-direction: column;
+    }
+    :global(.project-content ul),
+    :global(.project-content p),
+    :global(.project-content ol) {
+      font-size: 0.85rem;
+    }
+    :global(.project-content h2) {
+      font-size: 1.2rem;
+    }
+    :global(.project-content img + em) {
+      font-size: 0.75rem;
+    }
   }
 </style>

@@ -1,5 +1,5 @@
 ---
-title: "Bright Sunset - 2026-05-02"
+title: "Bright Sunset"
 category: photography
 image: ../../assets/photos/photography/Bright Sunset.jpg
 date: 2026-05-02

@@ -1,5 +1,5 @@
 ---
-title: "A Snowy Path - 2026-01-25"
+title: "A Snowy Path"
 category: photography
 image: ../../assets/photos/photography/A Snowy Path.jpg
 date: 2026-01-25

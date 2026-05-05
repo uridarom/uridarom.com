@@ -1,5 +1,5 @@
 ---
-title: "Trail Ridge Road 6 - 2025-07-26"
+title: "Trail Ridge Road 6"
 category: photography
 image: ../../assets/photos/photography/Trail Ridge Road 6.jpg
 date: 2025-07-26

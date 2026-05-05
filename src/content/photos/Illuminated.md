@@ -1,5 +1,5 @@
 ---
-title: "Illuminated - 2026-01-25"
+title: "Illuminated"
 category: photography
 image: ../../assets/photos/photography/Illuminated.jpg
 date: 2026-01-25

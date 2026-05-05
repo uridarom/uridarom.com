@@ -1,5 +1,5 @@
 ---
-title: "A Domestic Sunset - 2025-06-22"
+title: "A Domestic Sunset"
 category: photography
 image: ../../assets/photos/photography/A Domestic Sunset.jpg
 date: 2025-06-22

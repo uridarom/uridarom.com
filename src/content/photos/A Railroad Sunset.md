@@ -1,5 +1,5 @@
 ---
-title: "A Railroad Sunset - 2025-04-24"
+title: "A Railroad Sunset"
 category: photography
 image: ../../assets/photos/photography/A Railroad Sunset.jpg
 date: 2025-04-24

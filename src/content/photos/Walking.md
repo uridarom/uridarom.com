@@ -1,5 +1,5 @@
 ---
-title: "Walking - 2026-01-25"
+title: "Walking"
 category: photography
 image: ../../assets/photos/photography/Walking.jpg
 date: 2026-01-25

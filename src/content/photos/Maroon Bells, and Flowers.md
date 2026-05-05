@@ -1,5 +1,5 @@
 ---
-title: "Maroon Bells, and Flowers - 2025-07-28"
+title: "Maroon Bells, and Flowers"
 category: photography
 image: ../../assets/photos/photography/Maroon Bells, and Flowers.jpg
 date: 2025-07-28

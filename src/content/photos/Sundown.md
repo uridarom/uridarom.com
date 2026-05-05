@@ -1,5 +1,5 @@
 ---
-title: "Sundown - 2026-05-01"
+title: "Sundown"
 category: photography
 image: ../../assets/photos/photography/Sundown.jpg
 date: 2026-05-01

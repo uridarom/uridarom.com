@@ -1,5 +1,5 @@
 ---
-title: "Boston Skyline - 2026-03-10"
+title: "Boston Skyline"
 category: photography
 image: ../../assets/photos/photography/Boston Skyline.jpg
 date: 2026-03-10

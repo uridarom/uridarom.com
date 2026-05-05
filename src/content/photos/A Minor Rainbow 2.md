@@ -1,5 +1,5 @@
 ---
-title: "A Minor Rainbow 2 - 2025-06-07"
+title: "A Minor Rainbow 2"
 category: photography
 image: ../../assets/photos/photography/A Minor Rainbow 2.jpg
 date: 2025-06-07

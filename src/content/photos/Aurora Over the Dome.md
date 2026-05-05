@@ -1,5 +1,5 @@
 ---
-title: "Aurora Over the Dome - 2025-11-11"
+title: "Aurora Over the Dome"
 category: photography
 image: ../../assets/photos/photography/Aurora Over the Dome.jpg
 date: 2025-11-11

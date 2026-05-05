@@ -1,5 +1,5 @@
 ---
-title: "Sunset Rainbow - 2025-07-20"
+title: "Sunset Rainbow"
 category: photography
 image: ../../assets/photos/photography/Sunset Rainbow.jpg
 date: 2025-07-20

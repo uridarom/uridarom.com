@@ -1,5 +1,5 @@
 ---
-title: "Moonrise - 2025-10-01"
+title: "Moonrise"
 category: photography
 image: ../../assets/photos/photography/Moonrise.jpg
 date: 2025-10-01

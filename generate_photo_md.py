@@ -89,16 +89,16 @@ def main():
         date = format_date(exif["date_orig"]) if exif else ""
         acquisition = build_acquisition(exif) if exif else None
 
-        md_content = f"---\ntitle: \"{stem} - {date}\"\ncategory: photography\nimage: {image_relpath}\n"
+        md_content = f"---\ntitle: \"{stem}\"\ncategory: photography\nimage: {image_relpath}\n"
         if date:
             md_content += f"date: {date}\n"
         if acquisition:
             md_content += "acquisition: |\n" + "\n".join(f"  {line}" for line in acquisition.split("\n")) + "\n"
         md_content += "---\n"
 
-        if md_path.exists():
-            print(f"Skipped (already exists): {md_path}")
-            continue
+        # if md_path.exists():
+        #     print(f"Skipped (already exists): {md_path}")
+        #     continue
 
         md_path.write_text(md_content)
         print(f"Written: {md_path}")

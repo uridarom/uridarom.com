@@ -1,5 +1,5 @@
 ---
-title: "A Rocky Mountain - 2025-07-26"
+title: "A Rocky Mountain"
 category: photography
 image: ../../assets/photos/photography/A Rocky Mountain.jpg
 date: 2025-07-26

@@ -1,5 +1,5 @@
 ---
-title: "A Maine Sunset - 2025-06-01"
+title: "A Maine Sunset"
 category: photography
 image: ../../assets/photos/photography/A Maine Sunset.jpg
 date: 2025-06-01

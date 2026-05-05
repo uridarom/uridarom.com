@@ -1,5 +1,5 @@
 ---
-title: "Balcony - 2025-08-16"
+title: "Balcony"
 category: photography
 image: ../../assets/photos/photography/Balcony.jpg
 date: 2025-08-16

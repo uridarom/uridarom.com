@@ -17,55 +17,65 @@ const { title, image, acquisition, creative } = photo.data;
 <PageLayout title={title} activePage="photos">
   <div class="flex flex-col items-center px-6 pb-24">
     <!-- Title -->
-    <h1
-      class="text-white text-center mt-12 mb-8"
-      style="font-size: clamp(1.6rem, 3vw, 2.2rem);"
-    >
-      {title}
-    </h1>
+    <div class="flex gap-2 items-center">
+      <h1 class="text-white text-center mt-12 mb-8" style="font-size: clamp(1.6rem, 3vw, 2.2rem);">
+        {title}
+      </h1>
+      <h1 class="text-white text-center mt-12 mb-8 opacity-50" style="font-size: clamp(1.6rem, 3vw, 2.2rem");>
+        {(typeof photo.data.date !== 'undefined') ? " - "+photo.data.date.toISOString().split('T')[0]: ""}
+      </h1>
+    </div>
 
-  <!-- Primary Image -->
-  <div style="width: clamp(60%, 70vw, 900px);">
-    <a href={image.src} target="_blank" rel="noopener noreferrer">
-      <Image
-        src={image}
-        alt={title}
-        widths={[800, 1200, 1800]}
-        sizes="(max-width: 768px) 90vw, 70vw"
-        class="w-full block"
-        loading="eager"
-      />
-    </a>
-  </div>
+    <!-- Primary Image -->
+    <div class="photo-content  items-center " style="width: clamp(60%, 70vw, 900px);">
+      <a href={image.src} target="_blank" rel="noopener noreferrer">
+        <Image
+          src={image}
+          alt={title}
+          widths={[800, 1200, 1800]}
+          sizes="(max-width: 768px) 90vw, 70vw"
+          class="w-full block"
+          loading="eager"
+        />
+      </a>
+      <div class="mt-12 text-white photo-text">
+        {acquisition && (
+          <section class="mb-10">
+            <h2
+              class="font-bold text-white mb-4"
+              style="font-size: 1.3rem; text-transform: uppercase;"
+            >
+              Acquisition
+            </h2>
+            <p class="text-sm leading-5 opacity-90" style="font-size: 1rem; white-space: pre-line">{acquisition}</p>
+          </section>
+        )}
 
-    <!-- Text Content -->
-    <div
-      class="mt-12 text-white"
-      style="width: clamp(60%, 70vw, 900px);"
-    >
-      {acquisition && (
-        <section class="mb-10">
-          <h2
-            class="font-bold text-white mb-4"
-            style="font-size: 1.3rem; text-transform: uppercase;"
-          >
-            Acquisition
-          </h2>
-          <p class="text-sm leading-5 opacity-90" style="font-size: 1rem; white-space: pre-line">{acquisition}</p>
-        </section>
-      )}
-
-      {creative && (
-        <section class="mb-10">
-          <h2
-            class="font-bold text-white mb-4"
-            style="font-size: 1.3rem; text-transform: uppercase;"
-          >
-            Creative Choices
-          </h2>
-          <p class="text-sm leading-7 opacity-90">{creative}</p>
-        </section>
-      )}
+        {creative && (
+          <section class="mb-10">
+            <h2
+              class="font-bold text-white mb-4"
+              style="font-size: 1.3rem; text-transform: uppercase;"
+            >
+              Creative Choices
+            </h2>
+            <p class="text-sm leading-7 opacity-90">{creative}</p>
+          </section>
+        )}
+      </div>
     </div>
   </div>
+
+  <!-- Text Content -->
 </PageLayout>
+
+<style>
+  @media (max-width: 600px) {
+    :global(.photo-content) {
+      width: 100% !important;
+    }
+    :global(.photo-content p) {
+      font-size: 0.8rem !important;
+    }
+  }
+</style>

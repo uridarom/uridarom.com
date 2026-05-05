@@ -1,5 +1,5 @@
 ---
-title: "A Narrow Street - 2025-08-16"
+title: "A Narrow Street"
 category: photography
 image: ../../assets/photos/photography/A Narrow Street.jpg
 date: 2025-08-16
