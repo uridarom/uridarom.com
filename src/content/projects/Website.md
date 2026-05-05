@@ -71,4 +71,4 @@ As the frontier models become more competent, this level of abstraction will be 
 
 ## THE CODE
 
-The code for this website can be found in its GitHub Repository: 
+The code for this website can be found in its GitHub Repository: https://github.com/uridarom/uridarom.com 
