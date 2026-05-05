@@ -6,9 +6,16 @@ import { getCollection } from 'astro:content';
 
 const allPhotos = await getCollection('photos');
 // Sort newest first
-const photos = allPhotos.sort((a, b) => {
+const chronologicallySorted = allPhotos.sort((a, b) => {
   return (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0);
 });
+
+const cols: (typeof chronologicallySorted)[] = [[], [], []];
+chronologicallySorted.forEach((photo, i) => {
+  cols[i % 3].push(photo)
+  console.log(photo.id, i, i % 3)
+});
+const photos = [...cols[0], ...cols[1], ...cols[2]];
 ---
 <PageLayout title="Photos" activePage="photos">
   <SectionToggle />
@@ -19,7 +26,7 @@ const photos = allPhotos.sort((a, b) => {
   const buttons = document.querySelectorAll<HTMLButtonElement>('[data-category]');
   const items = document.querySelectorAll<HTMLElement>('#masonry-grid [data-category]');
 
-  let activeCategory = 'photography';
+  let activeCategory = 'astrophotography';
 
   function setCategory(category: string) {
     activeCategory = category;

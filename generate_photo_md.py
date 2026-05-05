@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate markdown files for photos from EXIF metadata."""
-
+import os
+import datetime
 import re
 from pathlib import Path
 
@@ -17,7 +18,7 @@ def parse_exif(filepath: Path) -> dict | None:
     try:
         tags = exifread.process_file(open(filepath, "rb"))
     except Exception:
-        return None
+        return {"date_orig":str(datetime.datetime.fromtimestamp(os.stat(filepath).st_birthtime).strip())}
 
     model = str(tags.get("Image Model", "")).strip()
     exposure = str(tags.get("EXIF ExposureTime", "")).strip()
@@ -40,6 +41,7 @@ def parse_exif(filepath: Path) -> dict | None:
 
 def format_date(date_orig: str) -> str:
     """Convert 'YYYY:MM:DD HH:MM:SS' to 'YYYY-MM-DD'."""
+    print(date_orig)
     match = re.match(r"(\d{4}):(\d{2}):(\d{2})", date_orig)
     if not match:
         return ""
@@ -86,7 +88,7 @@ def main():
 
         exif = parse_exif(photo_file)
 
-        date = format_date(exif["date_orig"]) if exif else ""
+        date = format_date(exif["date_orig"])
         acquisition = build_acquisition(exif) if exif else None
 
         md_content = f"---\ntitle: \"{stem}\"\ncategory: photography\nimage: {image_relpath}\n"
@@ -112,13 +114,17 @@ def main():
         md_filename = stem + ".md"
         md_path = CONTENT_DIR / md_filename
         image_relpath = f"../../assets/photos/astrophotography/{photo_file.name}"
+        
+        exif = parse_exif(photo_file)
 
         md_content = f"---\ntitle: \"{stem}\"\ncategory: astrophotography\nimage: {image_relpath}\n"
+        date = format_date(exif["date_orig"])
+        md_content += f"date: {date}\n"
         md_content += "---\n"
 
-        if md_path.exists():
-            print(f"Skipped (already exists): {md_path}")
-            continue
+        # if md_path.exists():
+        #     print(f"Skipped (already exists): {md_path}")
+        #     continue
 
         md_path.write_text(md_content)
         print(f"Written: {md_path}") 

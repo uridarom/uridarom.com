@@ -3,17 +3,17 @@ title: "This Website"
 description: "An experiment in modern programming.\nWritten with Astro."
 date: 2026-05-04
 order: 0
-image: ../../assets/photos/photography/Lightning3.jpeg
+image: ../../assets/photos/photography/Lightning Storm.jpg
 ---
 
 ## OVERVIEW
 
-I have recently (as of the time of writing) started playing around with using locally-run LLMs for coding tasks. I figured if they were good _enough_, then it would make sense economically to use them for at least less complex tasks. 
+I have recently (as of the time of writing) started playing around with using locally-run LLMs for coding tasks. I figured if they were good _enough_, then it would make sense economically to use them, at least for less complex tasks. 
 This also happened to be my introduction to formal LLM-assisted coding ('vibe coding') using proper development tools (I use claude-code). More on that later.
 
-I ran all models using llama.cpp. My model of choice so far has been the Qwen3.6 36B-A3B model. This is a Mixture of Experts model developed by Alibaba Cloud, specifically (from what I can gather) for the purpose of coding on weaker hardware. It is quite quick; on my Macbook M4 Pro with 48GB memory, it can consistently output 40 tokens/second. 
+I ran all models using llama.cpp. My model of choice so far has been the Qwen3.6 35B-A3B model. This is a Mixture of Experts model developed by Alibaba Cloud, specifically (from what I can gather) for the purpose of coding on weaker hardware. It is quite quick; on my Macbook M4 Pro with 48GB memory, it can consistently output 40 tokens/second. 
 
-The Alibaba team also developed a dense version of the Qwen3.6 model, known as Qwen3.6 27B. People have reported better results using this model compared to the MoE version for more complex tasks, at the cost of performance. Unfortunately, my hardware was not up to this task; the memory bandwidth meant that even the theoretical limit for this model would be somewhere around 15 tokens/second. Anecdotally, I was getting a very poor 6 tokens/second with this model. Some performance tradeoff for higher 'intelligence' makes sense, but this was too slow to get anythings done in a reasonable time span.
+The Alibaba team also developed a dense version of the Qwen3.6 model, known as Qwen3.6 27B. People have reported better results using this model compared to the MoE version for more complex tasks, at the cost of performance. Unfortunately, my hardware was not up to this task; the memory bandwidth meant that even the theoretical limit for this model would be somewhere around 15 tokens/second. Anecdotally, I was getting a very poor 6 tokens/second with this model. Some performance tradeoff for higher 'intelligence' makes sense, but this was too slow to get anything done in a reasonable time span.
 
 ![Qwen Benchmark|100%](../../assets/photos/projects/QwenBenchmark.png)
 _A standardized 512 tokens in, 128 tokens out benchmark for the two Qwen3.6 models.<br/> 35B-A3B, at ~43 tk/s, was about 4 times faster than 27B at ~10 tk/s_
@@ -65,7 +65,7 @@ I don't think the results of this little experiment were very deep. I was impres
 
 From Claude Sonnet's perspective, the task of actually writing the individual lines of code and creating the individual websites was abstracted away by the local model. All Sonnet had to do was think about the large scale organizational details, and the smaller model did the rest. And from my perspective, even the organizational aspects were abstracted away; all I had to worry about was what the final result should look like and the highest-possible-level implementation details (the decision to use Astro as the website generator).
 
-As the frontier models become more competent, this level of abstraction will be taken from small projects like these onto larger, more complex tasks. This kind of progression follows fairly naturally from the forms of abstraction that brought humans to this point. No one needs to worry about writing machine code anymore to execute their programs; and yet people don't argue that the graduation from Assembly to modern languages like Python represents an 'over-reliance' on modern, abstracted programming languages. My (admittedly very optimistic) outlook is that one day, humans will not need to write individual lines of code at all; the challenge of writing new software will have elevated to large-scale systems design and an idea of what the final product should look like. People who don't need to worry about writing code can be more efficient in terms of the scale and the scope of what actually gets made. Hopefully, humans are able to avoid the environmental implications of massive AI datacenters to become a more producive species.
+As the frontier models become more competent, this level of abstraction will be taken from small projects like these onto larger, more complex tasks. This kind of progression follows fairly naturally from the forms of abstraction that brought humans to this point. No one needs to worry about writing machine code anymore to execute their programs; and yet people don't argue that the graduation from Assembly to modern languages like Python represents an 'over-reliance' on modern, abstracted programming languages. My (admittedly very optimistic) outlook is that one day, humans will not need to write individual lines of code at all; the challenge of writing new software will have elevated to focusing on large-scale systems design and what the final product should look like. People who don't need to worry about writing code can be more efficient in terms of the scale and the scope of what actually gets made. Hopefully, as software and hardware progresses, the electrical and cooling cost of using LLMs for coding will decrease, allowing humans to ultimately become a more productive species.
 
 <br>
 
