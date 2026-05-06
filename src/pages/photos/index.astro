@@ -26,10 +26,14 @@ const photos = [...cols[0], ...cols[1], ...cols[2]];
   const buttons = document.querySelectorAll<HTMLButtonElement>('[data-category]');
   const items = document.querySelectorAll<HTMLElement>('#masonry-grid [data-category]');
 
-  let activeCategory = 'astrophotography';
+  const url = new URL(window.location.href);
+  const initialCategory = url.searchParams.get('category') || 'astrophotography';
+  let activeCategory = initialCategory;
 
   function setCategory(category: string) {
     activeCategory = category;
+    url.searchParams.set('category', category);
+    history.pushState(null, '', url);
 
     buttons.forEach((btn) => {
       const isActive = btn.dataset.category === category;
@@ -45,6 +49,13 @@ const photos = [...cols[0], ...cols[1], ...cols[2]];
 
   // Initialize
   setCategory(activeCategory);
+
+  // Handle browser back/forward navigation
+  window.addEventListener('popstate', () => {
+    const url = new URL(window.location.href);
+    const category = url.searchParams.get('category') || 'astrophotography';
+    setCategory(category);
+  });
 
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => {
