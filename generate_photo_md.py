@@ -116,8 +116,8 @@ def main():
         md_path = CONTENT_DIR / md_filename
         image_relpath = f"../../assets/photos/astrophotography/{photo_file.name}"
 
-        if md_path.exists():
-            continue
+        # if md_path.exists():
+        #     continue
         
         exif = parse_exif(photo_file)
         print(exif, stem)
