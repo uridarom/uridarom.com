@@ -15,16 +15,18 @@ CONTENT_DIR = BASE_DIR / "src" / "content" / "photos"
 
 def parse_exif(filepath: Path) -> dict | None:
     """Read EXIF data from an image file."""
+    file_date = str(datetime.datetime.fromtimestamp(os.stat(filepath).st_birthtime)).strip()
     try:
         tags = exifread.process_file(open(filepath, "rb"))
     except Exception:
-        return {"date_orig":str(datetime.datetime.fromtimestamp(os.stat(filepath).st_birthtime).strip())}
+        return {"date_orig":file_date}
 
     model = str(tags.get("Image Model", "")).strip()
     exposure = str(tags.get("EXIF ExposureTime", "")).strip()
     aperture = str(tags.get("EXIF FNumber", "")).strip()
     focal = str(tags.get("EXIF FocalLength", "")).strip()
     date_orig = str(tags.get("EXIF DateTimeOriginal", "")).strip()
+    date_orig = date_orig if date_orig else file_date
     lens = str(tags.get("EXIF LensModel", "")).strip()
     iso = str(tags.get("EXIF ISOSpeedRatings", "")).strip()
 
@@ -42,7 +44,7 @@ def parse_exif(filepath: Path) -> dict | None:
 def format_date(date_orig: str) -> str:
     """Convert 'YYYY:MM:DD HH:MM:SS' to 'YYYY-MM-DD'."""
     print(date_orig)
-    match = re.match(r"(\d{4}):(\d{2}):(\d{2})", date_orig)
+    match = re.match(r"(\d+)\D+(\d+)\D+(\d+)", date_orig)
     if not match:
         return ""
     return f"{match.group(1)}-{match.group(2)}-{match.group(3)}"
@@ -98,9 +100,8 @@ def main():
             md_content += "acquisition: |\n" + "\n".join(f"  {line}" for line in acquisition.split("\n")) + "\n"
         md_content += "---\n"
 
-        # if md_path.exists():
-        #     print(f"Skipped (already exists): {md_path}")
-        #     continue
+        if md_path.exists():
+            continue
 
         md_path.write_text(md_content)
         print(f"Written: {md_path}")
@@ -114,17 +115,18 @@ def main():
         md_filename = stem + ".md"
         md_path = CONTENT_DIR / md_filename
         image_relpath = f"../../assets/photos/astrophotography/{photo_file.name}"
+
+        if md_path.exists():
+            continue
         
         exif = parse_exif(photo_file)
+        print(exif, stem)
 
         md_content = f"---\ntitle: \"{stem}\"\ncategory: astrophotography\nimage: {image_relpath}\n"
         date = format_date(exif["date_orig"])
         md_content += f"date: {date}\n"
         md_content += "---\n"
 
-        # if md_path.exists():
-        #     print(f"Skipped (already exists): {md_path}")
-        #     continue
 
         md_path.write_text(md_content)
         print(f"Written: {md_path}") 

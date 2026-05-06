@@ -1,6 +1,6 @@
 ---
 title: "Rosette"
 category: astrophotography
-image: ../../assets/photos/astrophotography/Rosette.jpeg
-date: 2023-12-24
+image: ../../assets/photos/astrophotography/Rosette.jpg
+date: 2026-05-06
 ---
