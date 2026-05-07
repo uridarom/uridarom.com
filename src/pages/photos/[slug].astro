@@ -20,9 +20,9 @@ const MAX_FONT_REM     = 2.2;
 const MIN_FONT_REM     = 0.85;
 
 const dateStr = photo.data.date
-  ? ` - ${photo.data.date.toISOString().split('T')[0]}`
+  ? `${photo.data.date.toISOString().split('T')[0]}`
   : '';
-const fullDisplayLength = (title + dateStr).length;
+const fullDisplayLength = title.length;
 
 const CONTAINER_REM    = 17.5*(fullDisplayLength/21);   // maximum width the title can occupy
 
@@ -48,12 +48,12 @@ const fontSizeCss = `min(${fontSize.toFixed(3)}rem, ${cqiValue}cqi)`;
 
     <!-- Title -->
     <div class="title-wrapper" style={`width: ${wrapperWidth};`}>
-      <div class="flex gap-2 items-center justify-center">
-        <h1 class="text-white text-center mt-12 mb-8" style={`font-size: ${fontSizeCss}; white-space: nowrap;`}>
+      <div class="flex flex-col gap-2 items-center justify-center">
+        <h1 class="text-white text-center mt-12" style={`font-size: ${fontSizeCss}; white-space: nowrap;`}>
           {title}
         </h1>
-        <h1 class="text-white text-center mt-12 mb-8 opacity-50" style={`font-size: ${fontSizeCss}; white-space: nowrap;`}>
-          {dateStr}
+        <h1 class="text-white text-center mb-8 opacity-50 -translate-y-2.5" style={`font-size: ${fontSizeCss*0.5}; white-space: nowrap;`}>
+          {dateStr.replaceAll("-", "-")}
         </h1>
       </div>
     </div>
