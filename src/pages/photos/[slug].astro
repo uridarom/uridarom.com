@@ -13,21 +13,53 @@ export async function getStaticPaths() {
 
 const { photo } = Astro.props;
 const { title, image, acquisition, creative } = photo.data;
+
+// --- Compute font size at build time ---
+const CHAR_WIDTH_RATIO = 0.52; // approx char width as fraction of 1rem in Playfair Display
+const MAX_FONT_REM     = 2.2;
+const MIN_FONT_REM     = 0.85;
+
+const dateStr = photo.data.date
+  ? ` - ${photo.data.date.toISOString().split('T')[0]}`
+  : '';
+const fullDisplayLength = (title + dateStr).length;
+
+const CONTAINER_REM    = 17.5*(fullDisplayLength/21);   // maximum width the title can occupy
+
+// Only shrink if the text actually exceeds the container at max font size
+const overflowThreshold = CONTAINER_REM / (MAX_FONT_REM * CHAR_WIDTH_RATIO);
+const rawSize           = fullDisplayLength > overflowThreshold
+  ? CONTAINER_REM / (fullDisplayLength * CHAR_WIDTH_RATIO)
+  : MAX_FONT_REM;
+
+const fontSize = Math.max(MIN_FONT_REM, rawSize);
+
+// Set wrapper to the actual text width so short titles don't shrink prematurely
+const naturalTextWidth = fullDisplayLength * CHAR_WIDTH_RATIO * fontSize;
+const wrapperWidth     = `${Math.min(naturalTextWidth, CONTAINER_REM).toFixed(3)}rem`;
+
+// cqi value that equals fontSize exactly when container = wrapperWidth
+const cqiValue    = (100 / (fullDisplayLength * CHAR_WIDTH_RATIO)).toFixed(3);
+const fontSizeCss = `min(${fontSize.toFixed(3)}rem, ${cqiValue}cqi)`;
 ---
+
 <PageLayout title={title} activePage="photos">
   <div class="flex flex-col items-center px-6 pb-24">
+
     <!-- Title -->
-    <div class="flex gap-2 items-center">
-      <h1 class="text-white text-center mt-12 mb-8" style="font-size: clamp(1.6rem, 3vw, 2.2rem);">
-        {title}
-      </h1>
-      <h1 class="text-white text-center mt-12 mb-8 opacity-50" style="font-size: clamp(1.6rem, 3vw, 2.2rem");>
-        {(typeof photo.data.date !== 'undefined') ? " - "+photo.data.date.toISOString().split('T')[0]: ""}
-      </h1>
+    <div class="title-wrapper" style={`width: ${wrapperWidth};`}>
+      <div class="flex gap-2 items-center justify-center">
+        <h1 class="text-white text-center mt-12 mb-8" style={`font-size: ${fontSizeCss}; white-space: nowrap;`}>
+          {title}
+        </h1>
+        <h1 class="text-white text-center mt-12 mb-8 opacity-50" style={`font-size: ${fontSizeCss}; white-space: nowrap;`}>
+          {dateStr}
+        </h1>
+      </div>
     </div>
 
     <!-- Primary Image -->
-    <div class="photo-content  items-center " style="width: clamp(60%, 70vw, 900px);">
+    <div class="photo-content items-center" style="width: clamp(60%, 70vw, 900px);">
       <a href={image.src} target="_blank" rel="noopener noreferrer">
         <Image
           src={image}
@@ -41,22 +73,15 @@ const { title, image, acquisition, creative } = photo.data;
       <div class="mt-12 text-white photo-text">
         {acquisition && (
           <section class="mb-10">
-            <h2
-              class="font-bold text-white mb-4"
-              style="font-size: 1.3rem; text-transform: uppercase;"
-            >
+            <h2 class="font-bold text-white mb-4" style="font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;">
               Acquisition
             </h2>
             <p class="text-sm leading-5 opacity-90" style="font-size: 1rem; white-space: pre-line">{acquisition}</p>
           </section>
         )}
-
         {creative && (
           <section class="mb-10">
-            <h2
-              class="font-bold text-white mb-4"
-              style="font-size: 1.3rem; text-transform: uppercase;"
-            >
+            <h2 class="font-bold text-white mb-4" style="font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;">
               Creative Choices
             </h2>
             <p class="text-sm leading-7 opacity-90">{creative}</p>
@@ -65,11 +90,14 @@ const { title, image, acquisition, creative } = photo.data;
       </div>
     </div>
   </div>
-
-  <!-- Text Content -->
 </PageLayout>
 
 <style>
+  .title-wrapper {
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
   @media (max-width: 600px) {
     :global(.photo-content) {
       width: 100% !important;
