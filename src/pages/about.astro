@@ -3,7 +3,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 ---
 <PageLayout title="About" activePage="about">
   <div
-    class="flex flex-col items-center justify-center text-center px-1  -translate-y-24"
+    class="flex flex-col items-center justify-center text-center px-16  -translate-y-24"
     style="min-height: calc(100vh - 4rem);"
   >
     <h1
@@ -14,7 +14,7 @@ import PageLayout from '../layouts/PageLayout.astro';
     </h1>
 
     <p
-      class="text-white text-sm leading-7 mb-10"
+      class="text-white text-sm leading-7 mb-10 about-text"
       style="max-width: 700; opacity: 0.88; font-size: 1.5rem"
     >
       My name is Uri Darom.
@@ -25,12 +25,12 @@ import PageLayout from '../layouts/PageLayout.astro';
     </p>
 
     <div style="opacity: 0.88">
-      <p class="text-white text-sm mb-4" style="font-size: 1.5rem">Want to get in touch:</p>
+      <p class="text-white text-sm mb-4 about-text" style="font-size: 1.5rem">Want to get in touch:</p>
 
       <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-0">
         <a
           href="https://github.com/uridarom"
-          class="text-white text-sm hover:opacity-60 transition-opacity duration-200"
+          class="text-white text-sm hover:opacity-60 transition-opacity duration-200 about-text"
           style="font-size: 1.5rem"
         >
           GitHub
@@ -38,7 +38,7 @@ import PageLayout from '../layouts/PageLayout.astro';
         <span class="hidden sm:inline mx-2">•</span>
         <a
           href="mailto:uridarom@gmail.com"
-          class="text-white text-sm hover:opacity-60 transition-opacity duration-200"
+          class="text-white text-sm hover:opacity-60 transition-opacity duration-200 about-text"
           style="font-size: 1.5rem;"
         >
           uridarom@gmail.com
@@ -46,7 +46,7 @@ import PageLayout from '../layouts/PageLayout.astro';
         <span class="hidden sm:inline mx-2">•</span>
         <a
           href="https://www.linkedin.com/in/uri-darom/"
-          class="text-white text-sm hover:opacity-60 transition-opacity duration-200"
+          class="text-white text-sm hover:opacity-60 transition-opacity duration-200 about-text"
           style="font-size: 1.5rem;"
         >
           LinkedIn
@@ -55,5 +55,4 @@ import PageLayout from '../layouts/PageLayout.astro';
     </div>
   </div>
 </PageLayout>
-
 
