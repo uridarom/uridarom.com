@@ -71,9 +71,14 @@ def build_acquisition(exif: dict) -> str | None:
 
     # First line: device check
     line1 = f"Taken with {NAMES[exif['model']]} and {NAMES[exif['lens']]}."
+
     aperture_components = [int(num) for num in (exif['aperture']).split("/")]
     aperture = aperture_components[0] if len(aperture_components) == 1 else aperture_components[0]/aperture_components[1]
-    line2 = f"Shot at f/{aperture} aperture, {format_exposure(exif['exposure'])} exposure, and ISO {exif['iso']} @ {exif['focal']}mm."
+
+    fl_components = [int(num) for num in (exif['focal']).split("/")]
+    focal_length = fl_components[0] if len(fl_components) == 1 else fl_components[0]/fl_components[1]
+
+    line2 = f"Shot at f/{aperture} aperture, {format_exposure(exif['exposure'])} exposure, and ISO {exif['iso']} @ {focal_length}mm."
 
     return f"{line1}\n{line2}"
 
@@ -100,8 +105,8 @@ def main():
             md_content += "acquisition: |\n" + "\n".join(f"  {line}" for line in acquisition.split("\n")) + "\n"
         md_content += "---\n"
 
-        if md_path.exists():
-            continue
+        # if md_path.exists():
+        #     continue
 
         md_path.write_text(md_content)
         print(f"Written: {md_path}")
