@@ -66,11 +66,14 @@ def build_acquisition(exif: dict) -> str | None:
         "105.0 mm f/2.8":"AF Micro NIKKOR 105mm f/2.8",
         "NIKKOR Z 24-120mm f/4 S":"NIKKOR Z 24-120mm f/4 S",
         "135.0 mm f/2.0":"Rokinon 135mm f/2",
-        "NIKON Z 6":"Nikon Z6"
+        "NIKON Z 6":"Nikon Z6",
+        "iPhone 17 Pro back triple camera 16.891mm f/2.8":"telephoto lens"
     }
 
     # First line: device check
-    line1 = f"Taken with {NAMES[exif['model']]} and {NAMES[exif['lens']]}."
+    model = NAMES[exif['model']] if exif['model'] in NAMES else exif['model']
+    lens = NAMES[exif['lens']] if exif['lens'] in NAMES else exif['lens']
+    line1 = f"Taken with {model} {'and' if 'iPhone' not in model else 'using the'} {lens}."
 
     aperture_components = [int(num) for num in (exif['aperture']).split("/")]
     aperture = aperture_components[0] if len(aperture_components) == 1 else aperture_components[0]/aperture_components[1]
@@ -78,12 +81,13 @@ def build_acquisition(exif: dict) -> str | None:
     fl_components = [int(num) for num in (exif['focal']).split("/")]
     focal_length = fl_components[0] if len(fl_components) == 1 else fl_components[0]/fl_components[1]
 
-    line2 = f"Shot at f/{aperture} aperture, {format_exposure(exif['exposure'])} exposure, and ISO {exif['iso']} @ {focal_length}mm."
+    line2 = f"Shot at f/{aperture} aperture, {format_exposure(exif['exposure'])} exposure, and ISO {exif['iso']} {'@'+str(focal_length)+'mm.' if not 'iPhone' in model else '.'}"
 
     return f"{line1}\n{line2}"
 
 
 def main():
+
     for photo_file in sorted(PHOTOS_DIR.iterdir()):
         if photo_file.suffix.lower() not in (".jpg", ".jpeg", ".png", ".tiff"):
             continue
