@@ -21,11 +21,15 @@
     "creative": {
       "type": "string"
     },
+    "body": {
+      "type": "string"
+    },
     "$schema": {
       "type": "string"
     }
   },
   "required": [
-    "title"
+    "title",
+    "image"
   ]
 }

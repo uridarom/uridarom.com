@@ -1,0 +1,15 @@
+This is the base repository for a portfolio website made with Astro. Currently, image gallery .md files are generated with the generate_photo_md.py file. 
+I want this functionality to be built in directly to the Astro implementation. To that end, create a spec sheet file in the base directory with instructions 
+for an AI SWE on how to implement the following changes:
+
+* Update the Astro setup so that on build time, it generates individual image pages that look identical to the ones created by the .md files in src/content/photos. 
+ That is, it should pull file metadata info in the same way as the python script and extract acquisition information, and then use that information to create the 
+ individual photo pages. The built individual photo pages should look identical to how they do before this change.
+
+* The src/content/photos directory should now have OPTIONAL .md files for certain photos. These files should have the same file name as the image file they correspond 
+ to. Within these .md files will be specific writeups that the wbsite builder may want to add for a particular photo. They should be formatted the same way as the .md 
+ files for Projects, seen in src/content/projects. If such a file exists for a given photo, the writeup should be added under the acquisition details is the same format
+ as the acquisition details (that is, the text should be the same width and size, etc). Also OPTIONALLY within these optional .md files for photos should be the ability
+ to overwrite the title and date info for the image (these are details that are currently present in every .md file in src/content/photos). If these details exist in a 
+ .md file for a photo, the website should use this new title or date (or both) in the process of generating the time-sorted image gallery and in generating the individual 
+ photo page.
