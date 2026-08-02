@@ -5,7 +5,7 @@
          iHDR script download
      </p>
    </description>
-   <platform os="all" arch="noarch" version="1.9.4">
+   <platform os="all" arch="noarch" version="1.9.4-0:1.9.4-10">
       <package fileName="iHDR20260802_v214.zip" sha1="ac84d54d195979d4a6b31eaea15788f0f7addb59" type="script" releaseDate="20260802">
          <title>
             iHDR
@@ -19,4 +19,4 @@
       </package>
    </platform>
 </xri>
-<Signature developerId="Uri Darom" timestamp="2026-08-02T18:38:02.471Z" encoding="Base64">Ew5daJ2CazOEBauVAYNnuT7iJ8A1ubZCfcaqN3J+cA564EdoZ75gMzI50z3yixNgNvklTFBvVK8O1o20ITLAAg==</Signature>
+<Signature developerId="Uri Darom" timestamp="2026-08-02T19:06:31.275Z" encoding="Base64">9pNATAhMdGlYtclaeY7XJ+kPbqFF4tT1arzrVzHa58TTrEh9J/iT6irh53pTEPfLZ0zDDvw3ZLcvreSucrGQDw==</Signature>
