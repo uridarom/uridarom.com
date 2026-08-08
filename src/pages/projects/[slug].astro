@@ -71,6 +71,20 @@ const { Content } = await render(project);
     display: block;
     margin: 0 auto;
   }
+  :global(.project-content .hover-swap) {
+    position: relative;
+  }
+  :global(.project-content .img-overlay) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  :global(.project-content .hover-swap:hover .img-overlay) {
+    opacity: 1;
+  }
   :global(.project-content img + em) {
     display: block;
     text-align: center;
@@ -91,6 +105,7 @@ const { Content } = await render(project);
   @media (max-width: 600px) {
     :global(.project-content .columns) {
       flex-direction: column;
+      gap: 0;
     }
     :global(.project-content ul),
     :global(.project-content p),

@@ -12,7 +12,9 @@ function rehypeImageWidth() {
       node.properties.alt = alt[0].trim();
       style += `max-width: ${alt[1]};`;
       
-      if (alt.includes("embed")) {
+      if (alt.includes("overlay")) {
+        node.properties.className = ['img-overlay'];
+      } else if (alt.includes("embed")) {
         style += `float: right; padding-left: 1rem; padding-bottom: 1rem`
       } else {
         style += `display: block; margin: 0 auto;`
