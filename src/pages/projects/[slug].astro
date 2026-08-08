@@ -33,6 +33,14 @@ const { Content } = await render(project);
   </div>
 </PageLayout>
 
+<script>
+  if (matchMedia('(hover: none)').matches) {
+    document.querySelectorAll('.hover-swap').forEach((el) =>
+      el.addEventListener('click', () => el.classList.toggle('swapped'))
+    );
+  }
+</script>
+
 <style>
   :global(.project-content h2) {
     font-weight: 700;
@@ -73,6 +81,7 @@ const { Content } = await render(project);
   }
   :global(.project-content .hover-swap) {
     position: relative;
+    -webkit-tap-highlight-color: transparent;
   }
   :global(.project-content .img-overlay) {
     position: absolute;
@@ -82,7 +91,12 @@ const { Content } = await render(project);
     opacity: 0;
     transition: opacity 0.35s ease;
   }
-  :global(.project-content .hover-swap:hover .img-overlay) {
+  @media (hover: hover) {
+    :global(.project-content .hover-swap:hover .img-overlay) {
+      opacity: 1;
+    }
+  }
+  :global(.project-content .hover-swap.swapped .img-overlay) {
     opacity: 1;
   }
   :global(.project-content img + em) {

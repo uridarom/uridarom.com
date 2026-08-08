@@ -12,8 +12,7 @@ One of the most difficult targets to process in astrophotography are ones with e
 
 <div class="hover-swap">
 
-![Example high-dynamic range target|100%](../../assets/photos/projects/HDR_Example.png)
-![The same target with iHDR applied|100%|overlay](../../assets/photos/projects/iHDR_Example.png)
+![Example high-dynamic range target|100%](../../assets/photos/projects/HDR_Example.png)![The same target with iHDR applied|100%|overlay](../../assets/photos/projects/iHDR_Example.png)
 _An example of a high-dynamic-range target (Messier 42)_
 
 </div>
