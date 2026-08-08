@@ -28,7 +28,7 @@ function rehypeImageWidth() {
 
 export default defineConfig({
   site: 'https://www.uridarom.com',
-  integrations: [tailwind()],
+  integrations: [tailwind({ applyBaseStyles: false })],
   image: {
     domains: [],
   },

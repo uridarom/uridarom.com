@@ -8,15 +8,22 @@ const navItems = [
 ];
 ---
 <BaseLayout title="Home">
-  <div class="min-h-screen flex flex-col items-center justify-center bg-black -translate-y-24">
+  <div class="min-h-screen flex flex-col items-center justify-center bg-page -translate-y-24">
     <h1
-      class="text-white font-bold tracking-tight"
+      class="text-ink font-bold tracking-tight"
       style="font-size: clamp(2.8rem, 6vw, 5rem);"
     >
-      Uri Darom
+      <button
+        id="theme-toggle"
+        aria-label="Toggle dark mode"
+        class="select-none"
+        style="-webkit-tap-highlight-color: transparent;"
+      >
+        Uri Darom
+      </button>
     </h1>
     <nav
-      class="flex items-center gap-3 mt-2 text-sm text-white"
+      class="flex items-center gap-3 mt-2 text-sm text-ink"
       style="font-size: clamp(1.0rem, 1vw, 3rem);"
     >
       {navItems.map((item, i) => (
@@ -30,3 +37,10 @@ const navItems = [
     </nav>
   </div>
 </BaseLayout>
+
+<script>
+  document.getElementById('theme-toggle')!.addEventListener('click', () => {
+    const dark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  });
+</script>

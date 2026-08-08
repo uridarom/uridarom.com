@@ -51,10 +51,10 @@ const fontSizeCss = `min(${fontSize.toFixed(3)}rem, ${cqiValue}cqi)`;
     <!-- Title -->
     <div class="title-wrapper" style={`width: ${wrapperWidth};`}>
       <div class="flex flex-col gap-2 items-center justify-center">
-        <h1 class="text-white text-center mt-12" style={`font-size: ${fontSizeCss}; white-space: nowrap;`}>
+        <h1 class="text-ink text-center mt-12" style={`font-size: ${fontSizeCss}; white-space: nowrap;`}>
           {title}
         </h1>
-        <h1 class="text-white text-center mb-8 opacity-50 -translate-y-2.5" style={`font-size: ${fontSizeCss*0.5}; white-space: nowrap;`}>
+        <h1 class="text-ink text-center mb-8 opacity-50 -translate-y-2.5" style={`font-size: ${fontSizeCss*0.5}; white-space: nowrap;`}>
           {dateStr.replaceAll("-", "-")}
         </h1>
       </div>
@@ -73,11 +73,11 @@ const fontSizeCss = `min(${fontSize.toFixed(3)}rem, ${cqiValue}cqi)`;
           format="png"
         />
       </a>
-      <div class="mt-12 text-white photo-text">
+      <div class="mt-12 text-ink photo-text">
         {acquisition && (
           <section class="mb-10">
             <h2
-              class="font-bold text-white mb-4"
+              class="font-bold text-ink mb-4"
               style="font-size: clamp(1.2rem, 3vw, 1.3rem); text-transform: uppercase;"
             >
               Acquisition
@@ -91,7 +91,7 @@ const fontSizeCss = `min(${fontSize.toFixed(3)}rem, ${cqiValue}cqi)`;
         {creative && (
           <section class="mb-10">
             <h2
-              class="font-bold text-white mb-4"
+              class="font-bold text-ink mb-4"
               style="font-size: clamp(1.2rem, 3vw, 1.3rem); text-transform: uppercase;"
             >
               Image Details
@@ -122,7 +122,7 @@ const fontSizeCss = `min(${fontSize.toFixed(3)}rem, ${cqiValue}cqi)`;
     font-size: clamp(1.2rem, 3vw, 1.3rem);
     text-transform: uppercase;
     margin-bottom: 1rem;
-    color: white;
+    color: rgb(var(--ink));
   }
   :global(.photo-writeup img) {
     display: block;

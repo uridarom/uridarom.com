@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css';
+
 interface Props {
   title: string;
   description?: string;
@@ -6,10 +8,18 @@ interface Props {
 const { title, description = 'Portfolio' } = Astro.props;
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline>
+      // Must run before first paint, or the page flashes the default theme before correcting.
+      // Both branches matter: <html> ships class="dark", so a stored 'light' has to remove it.
+      document.documentElement.classList.toggle(
+        'dark',
+        (localStorage.getItem('theme') ?? 'dark') === 'dark'
+      );
+    </script>
     <title>{title} — Uri Darom</title>
     {description && <meta name="description" content={description} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,7 +27,7 @@ const { title, description = 'Portfolio' } = Astro.props;
     <link href="https://fonts.googleapis.com/css2?family=Faustina:wght@300;400;700&display=swap" rel="stylesheet" />
     <link rel="icon" href="/icon.png" />
   </head>
-  <body class="bg-black text-white min-h-screen">
+  <body class="bg-page text-ink min-h-screen">
     <slot />
   </body>
 </html>

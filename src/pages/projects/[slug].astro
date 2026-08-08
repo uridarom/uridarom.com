@@ -17,7 +17,7 @@ const { Content } = await render(project);
   <div class="flex flex-col items-center px-6 pb-24">
     <!-- Title -->
     <h1
-      class="text-white text-center font-bold mt-12 mb-10"
+      class="text-ink text-center font-bold mt-12 mb-10"
       style="font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 6rem;"
     >
       {project.data.title}
@@ -25,7 +25,7 @@ const { Content } = await render(project);
 
     <!-- Content -->
     <div
-      class="project-content text-white w-full"
+      class="project-content text-ink w-full"
       style="max-width: 900px;"
     >
       <Content />
@@ -75,9 +75,15 @@ const { Content } = await render(project);
     text-align: left;
   }
   :global(.project-content img) {
-    padding-top: 1rem;
     display: block;
     margin: 0 auto;
+    /* border-box (Tailwind preflight) keeps the outer edge flush with the text column:
+       the image shrinks by 8px instead of the box growing. */
+    border: 2px solid rgb(var(--ink));
+  }
+  /* Spacing lives on the paragraph now: padding on the image would push the outline off its edge. */
+  :global(.project-content p:has(img)) {
+    margin-top: 2.2rem;
   }
   :global(.project-content .hover-swap) {
     position: relative;

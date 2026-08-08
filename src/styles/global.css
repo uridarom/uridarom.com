@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --page: 255 255 255;
+  --ink: 0 0 0;
+  --surface: 237 237 237;
+  --surface-hover: 227 227 227;
+  color-scheme: light;
+}
+
+html.dark {
+  --page: 0 0 0;
+  --ink: 255 255 255;
+  --surface: 18 18 18;
+  --surface-hover: 28 28 28;
+  color-scheme: dark;
+}

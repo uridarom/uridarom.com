@@ -9,19 +9,19 @@ const navItems = [
   { label: 'About', href: '/about', key: 'about' },
 ] as const;
 ---
-<header class="fixed top-0 left-0 right-0 z-50 bg-black h-16 flex items-center px-8">
+<header class="fixed top-0 left-0 right-0 z-50 bg-page h-16 flex items-center px-8">
   <nav class="flex items-center h-full gap-4 text-sm">
-    <a href="/" class="text-white mr-1 leading-none self-center" style="font-size: clamp(1.6rem, 3vw, 2.2rem);">
+    <a href="/" class="text-ink mr-1 leading-none self-center" style="font-size: clamp(1.6rem, 3vw, 2.2rem);">
       Uri Darom
     </a>
     <div class='translate-y-1'>
       {navItems.map((item, i) => (
         <>
-          {i > 0 && <span class="text-white select-none self-center mx-1.5">•</span>}
+          {i > 0 && <span class="text-ink select-none self-center mx-1.5">•</span>}
           <a
             href={item.href}
             class:list={[
-              'text-white hover:opacity-70 transition-opacity duration-100',
+              'text-ink hover:opacity-70 transition-opacity duration-100',
               'self-center',
               activePage === item.key ? 'font-bold' : 'font-normal',
             ]}
