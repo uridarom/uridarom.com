@@ -115,6 +115,7 @@ export function photosLoader() {
           const sidecarPath = path.join(sidecarDir, `${stem}.md`);
           let titleOverride: string | undefined;
           let dateOverride: Date | undefined;
+          let priority = 1;
           let body: string | undefined;
 
           if (fs.existsSync(sidecarPath)) {
@@ -122,6 +123,7 @@ export function photosLoader() {
             const fm = matter(raw);
             if (typeof fm.data.title === 'string') titleOverride = fm.data.title;
             if (fm.data.date) dateOverride = new Date(fm.data.date);
+            if (typeof fm.data.priority === 'number') priority = fm.data.priority;
             if (fm.content && fm.content.trim().length > 0) body = fm.content.trim();
           }
 
@@ -132,6 +134,7 @@ export function photosLoader() {
               category,
               image: relativeImagePath(absPath),
               date: dateOverride ?? date,
+              priority,
               acquisition,
               body,
             },

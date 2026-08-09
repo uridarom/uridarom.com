@@ -1,32 +1,40 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import { packColumns } from '../lib/masonry';
 
 interface Props {
   photos: CollectionEntry<'photos'>[];
+  category: string;
 }
-const { photos } = Astro.props;
+const { photos, category } = Astro.props;
+
+// One packing per breakpoint; only the matching one is displayed.
+const layouts = [
+  { count: 1, visibility: 'flex md:hidden' },
+  { count: 2, visibility: 'hidden md:flex lg:hidden' },
+  { count: 3, visibility: 'hidden lg:flex' },
+];
 ---
-<div
-  id="masonry-grid"
-  style="column-gap: 6px;"
-  class="columns-1 md:columns-2 lg:columns-3 w-[80%] md:w-[80%] mx-auto"
->
-  {photos.map((photo) => (
-    <a
-      href={`/photos/${photo.id.split('/').pop()}`}
-      data-category={photo.data.category}
-      style="display: block; break-inside: avoid; padding-bottom: 6px;"
-      class="group"
-    >
-      <Image
-        src={photo.data.image}
-        alt={photo.data.title}
-        widths={[400, 800, 1200]}
-        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        class="w-full block group-hover:brightness-[.85] transition duration-100"
-        loading="lazy"
-      />
-    </a>
+<div data-grid={category}>
+  {layouts.map(({ count, visibility }) => (
+    <div class={`${visibility} gap-1.5 w-[80%] mx-auto`}>
+      {packColumns(photos, count).map((column) => (
+        <div class="flex flex-col gap-1.5 flex-1 min-w-0">
+          {column.map((photo) => (
+            <a href={`/photos/${photo.id.split('/').pop()}`} class="group block">
+              <Image
+                src={photo.data.image}
+                alt={photo.data.title}
+                widths={[400, 800, 1200]}
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                class="w-full block group-hover:brightness-[.85] transition duration-100"
+                loading="lazy"
+              />
+            </a>
+          ))}
+        </div>
+      ))}
+    </div>
   ))}
 </div>

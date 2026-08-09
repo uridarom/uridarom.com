@@ -1,0 +1,423 @@
+---
+import { getImage } from 'astro:assets';
+
+interface Props {
+  image: ImageMetadata;
+  alt: string;
+}
+const { image, alt } = Astro.props;
+
+// Ceiling on the zoomable copy. Beyond ~4000px the file grows faster than the
+// detail a viewer can actually reach.
+const ZOOM_MAX_WIDTH = 4000;
+const NAV_BOX = 200;
+
+// Lossless, so faint gradients and star fields survive at full zoom. No quality
+// option: for PNG it would only engage palette quantization.
+const zoom = await getImage({
+  src: image,
+  width: Math.min(ZOOM_MAX_WIDTH, image.width),
+  format: 'png',
+});
+const thumb = await getImage({ src: image, width: 400, format: 'webp', quality: 65 });
+
+const navScale = NAV_BOX / Math.max(image.width, image.height);
+const navW = Math.round(image.width * navScale);
+const navH = Math.round(image.height * navScale);
+---
+
+<div
+  class="zoom-overlay"
+  data-zoom-overlay
+  role="dialog"
+  aria-modal="true"
+  aria-label={`${alt} — zoom view`}
+>
+  <div class="zoom-stage" data-zoom-stage>
+    <img class="zoom-img" data-zoom-img data-src={zoom.src} alt={alt} draggable="false" />
+  </div>
+
+  <div class="zoom-panel" style={`--nav-w: ${navW}px; --nav-h: ${navH}px;`}>
+    <p class="zoom-title">{alt}</p>
+    <div class="zoom-nav" data-zoom-nav>
+      <img src={thumb.src} alt="" draggable="false" />
+      <div class="zoom-rect" data-zoom-rect></div>
+    </div>
+  </div>
+
+  <button class="zoom-close" data-zoom-close aria-label="Close zoom view">&times;</button>
+
+  <p class="zoom-loading">Loading full resolution&hellip;</p>
+</div>
+
+<style>
+  .zoom-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: none;
+    background: rgb(var(--page));
+    /* Until the full-size copy decodes, the stage is empty — fade it in. */
+    --img-opacity: 0;
+  }
+  .zoom-overlay.is-open { display: block; }
+  .zoom-overlay.is-loaded { --img-opacity: 1; }
+
+  .zoom-stage {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    touch-action: none;
+    cursor: zoom-in;
+  }
+  .zoom-overlay.is-zoomed .zoom-stage { cursor: zoom-out; }
+  .zoom-overlay.is-zoomed .zoom-stage.is-panning { cursor: grabbing; }
+
+  .zoom-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+    max-width: none;
+    opacity: var(--img-opacity);
+    transition: opacity 200ms ease;
+    user-select: none;
+  }
+
+  .zoom-panel {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    width: calc(var(--nav-w) * var(--nav-k, 1));
+    opacity: var(--img-opacity);
+    transition: opacity 200ms ease;
+  }
+
+  .zoom-title {
+    /* Narrow (portrait) navigators would otherwise wrap the title to 4+ lines. */
+    width: max(100%, 11rem);
+    color: rgb(var(--ink));
+    font-size: 1.0rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.4rem;
+    transition: color 200ms ease;
+  }
+
+  /* Zoomed, the image fills the stage and the overlay chrome sits over the photo
+     itself, which is dark whatever the site theme is. */
+  .zoom-overlay.is-zoomed .zoom-title,
+  .zoom-overlay.is-zoomed .zoom-close { color: #fff; }
+
+  .zoom-nav {
+    position: relative;
+    height: calc(var(--nav-h) * var(--nav-k, 1));
+    /* Clips the rect's dimming box-shadow to the navigator. */
+    overflow: hidden;
+    outline: 1px solid rgb(var(--ink) / 0.35);
+    cursor: crosshair;
+    touch-action: none;
+  }
+  .zoom-nav img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    user-select: none;
+  }
+
+  .zoom-rect {
+    position: absolute;
+    box-sizing: border-box;
+    border: 1px solid rgb(var(--page));
+    outline: 1px solid rgb(var(--ink) / 0.6);
+    box-shadow: 0 0 0 9999px rgb(var(--page) / 0.45);
+    pointer-events: none;
+  }
+
+  /* Only click-to-zoom animates; dragging and wheeling must track the input. */
+  .zoom-overlay.is-animating .zoom-img {
+    transition: opacity 200ms ease, transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .zoom-overlay.is-animating .zoom-rect {
+    transition: all 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .zoom-overlay.is-animating .zoom-img { transition: opacity 200ms ease; }
+    .zoom-overlay.is-animating .zoom-rect { transition: none; }
+  }
+
+  .zoom-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    color: rgb(var(--ink));
+    font-size: 2.25rem;
+    line-height: 1;
+    transition: color 200ms ease;
+  }
+
+  .zoom-hint {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgb(var(--ink));
+    font-size: 0.75rem;
+    opacity: calc(0.45 * var(--img-opacity));
+    transition: opacity 200ms ease;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .zoom-loading {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: rgb(var(--ink));
+    font-size: 0.85rem;
+    opacity: calc(0.5 - 0.5 * var(--img-opacity));
+    transition: opacity 200ms ease;
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px) {
+    .zoom-panel { --nav-k: 0.6; top: 0.75rem; left: 0.75rem; }
+    .zoom-title { font-size: 0.65rem; }
+    .zoom-hint { font-size: 0.65rem; }
+  }
+</style>
+
+<script>
+  const overlay = document.querySelector<HTMLElement>('[data-zoom-overlay]');
+  const stage = overlay?.querySelector<HTMLElement>('[data-zoom-stage]');
+  const img = overlay?.querySelector<HTMLImageElement>('[data-zoom-img]');
+  const nav = overlay?.querySelector<HTMLElement>('[data-zoom-nav]');
+  const rect = overlay?.querySelector<HTMLElement>('[data-zoom-rect]');
+
+  if (overlay && stage && img && nav && rect) {
+    // scale is stage-pixels per image-pixel; tx/ty place the image's top-left corner.
+    let iw = 0, ih = 0, scale = 1, tx = 0, ty = 0, fit = 1, max = 1;
+
+    const stageSize = () => stage.getBoundingClientRect();
+
+    const clampView = () => {
+      const { width: W, height: H } = stageSize();
+      const w = iw * scale, h = ih * scale;
+      tx = w <= W ? (W - w) / 2 : Math.min(0, Math.max(W - w, tx));
+      ty = h <= H ? (H - h) / 2 : Math.min(0, Math.max(H - h, ty));
+    };
+
+    const render = () => {
+      img.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+      const { width: W, height: H } = stageSize();
+      const nb = nav.getBoundingClientRect();
+      rect.style.left = `${(Math.max(0, -tx / scale) / iw) * nb.width}px`;
+      rect.style.top = `${(Math.max(0, -ty / scale) / ih) * nb.height}px`;
+      rect.style.width = `${(Math.min(iw, W / scale) / iw) * nb.width}px`;
+      rect.style.height = `${(Math.min(ih, H / scale) / ih) * nb.height}px`;
+      // On the overlay, not the stage: the title sits outside the stage subtree.
+      overlay.classList.toggle('is-zoomed', zoomed());
+    };
+
+    // Bounds depend on the stage, so they are recomputed on open and on resize.
+    const measure = () => {
+      const { width: W, height: H } = stageSize();
+      fit = Math.min(W / iw, H / ih);
+      // 1.0 is one image pixel per CSS pixel — the point past which there is no
+      // more detail. Small images get headroom anyway so zoom is never a no-op.
+      max = Math.max(1, fit * 1.5);
+    };
+
+    // Continuous zoom (wheel, pinch): the point under the cursor stays put.
+    const zoomAt = (px: number, py: number, factor: number) => {
+      const next = Math.min(max, Math.max(fit, scale * factor));
+      if (next === scale) return;
+      overlay.classList.remove('is-animating');
+      tx = px - ((px - tx) / scale) * next;
+      ty = py - ((py - ty) / scale) * next;
+      scale = next;
+      clampView();
+      render();
+    };
+
+    // Click-to-zoom: the point jumps to the middle of the stage, so the detail
+    // being inspected lands where the viewer is already looking.
+    const zoomToward = (px: number, py: number, next: number) => {
+      const { width: W, height: H } = stageSize();
+      const ix = (px - tx) / scale, iy = (py - ty) / scale;
+      scale = next;
+      tx = W / 2 - ix * scale;
+      ty = H / 2 - iy * scale;
+      overlay.classList.add('is-animating');
+      clampView();
+      render();
+    };
+
+    const zoomed = () => scale > fit * 1.01;
+
+    // Where a click lands: 2 image pixels per CSS pixel. Images already denser
+    // than that when fitted fall back to a relative step, so a click always
+    // visibly zooms. Wheel and pinch still reach max (1:1) from here.
+    const CLICK_STOP = 0.5;
+    const clickStop = () => (CLICK_STOP > fit * 1.2 ? CLICK_STOP : fit * 1.5);
+
+    const toggleZoom = (clientX: number, clientY: number) => {
+      const b = stageSize();
+      zoomToward(clientX - b.left, clientY - b.top, zoomed() ? fit : clickStop());
+    };
+
+    overlay.addEventListener('transitionend', (e) => {
+      if ((e as TransitionEvent).propertyName === 'transform') {
+        overlay.classList.remove('is-animating');
+      }
+    });
+
+    const closeBtn = overlay.querySelector<HTMLButtonElement>('[data-zoom-close]');
+    let opener: HTMLElement | null = null;
+    let loaded = false;
+
+    const open = async (e: Event) => {
+      opener = e.currentTarget as HTMLElement;
+      overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      closeBtn?.focus();
+      if (!loaded) {
+        loaded = true;
+        img.src = img.dataset.src!;
+        try {
+          await img.decode();
+        } catch {
+          /* decode rejects on a broken image; the empty stage is the fallback */
+        }
+        overlay.classList.add('is-loaded');
+      }
+      iw = img.naturalWidth;
+      ih = img.naturalHeight;
+      if (!iw || !ih) return;
+      measure();
+      scale = fit;
+      clampView();
+      render();
+    };
+
+    const close = () => {
+      overlay.classList.remove('is-open');
+      document.body.style.overflow = '';
+      opener?.focus();
+    };
+
+    document.querySelectorAll('[data-zoom-open]').forEach((el) => {
+      el.addEventListener('click', open);
+    });
+    closeBtn?.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+    });
+    window.addEventListener('resize', () => {
+      if (!iw || !overlay.classList.contains('is-open')) return;
+      measure();
+      scale = Math.min(max, Math.max(fit, scale));
+      clampView();
+      render();
+    });
+
+    stage.addEventListener(
+      'wheel',
+      (e) => {
+        e.preventDefault();
+        const b = stageSize();
+        zoomAt(e.clientX - b.left, e.clientY - b.top, Math.exp(-e.deltaY * 0.0015));
+      },
+      { passive: false }
+    );
+
+    const pointers = new Map<number, { x: number; y: number }>();
+    let pinch = 0;
+    // A pan ends in a click too, so a tap is only a tap if it barely moved and
+    // never became a pinch.
+    let travel = 0;
+    let multitouch = false;
+    const TAP_SLOP = 8;
+    const spread = () => {
+      const [a, b] = [...pointers.values()];
+      return Math.hypot(a.x - b.x, a.y - b.y);
+    };
+    const centroid = () => {
+      const p = [...pointers.values()];
+      return {
+        x: p.reduce((s, q) => s + q.x, 0) / p.length,
+        y: p.reduce((s, q) => s + q.y, 0) / p.length,
+      };
+    };
+
+    stage.addEventListener('pointerdown', (e) => {
+      stage.setPointerCapture(e.pointerId);
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 1) {
+        travel = 0;
+        multitouch = false;
+      } else {
+        multitouch = true;
+      }
+      pinch = pointers.size === 2 ? spread() : 0;
+      stage.classList.add('is-panning');
+    });
+
+    stage.addEventListener('pointermove', (e) => {
+      const prev = pointers.get(e.pointerId);
+      if (!prev) return;
+      const dx = e.clientX - prev.x, dy = e.clientY - prev.y;
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      travel += Math.hypot(dx, dy);
+
+      if (pointers.size >= 2) {
+        const b = stageSize(), c = centroid(), d = spread();
+        if (pinch > 0) zoomAt(c.x - b.left, c.y - b.top, d / pinch);
+        pinch = d;
+      } else if (travel > TAP_SLOP) {
+        overlay.classList.remove('is-animating');
+        tx += dx;
+        ty += dy;
+        clampView();
+        render();
+      }
+    });
+
+    stage.addEventListener('pointerup', (e) => {
+      pointers.delete(e.pointerId);
+      pinch = pointers.size === 2 ? spread() : 0;
+      if (pointers.size) return;
+      stage.classList.remove('is-panning');
+      if (!multitouch && travel <= TAP_SLOP) toggleZoom(e.clientX, e.clientY);
+    });
+
+    stage.addEventListener('pointercancel', (e) => {
+      pointers.delete(e.pointerId);
+      pinch = pointers.size === 2 ? spread() : 0;
+      if (!pointers.size) stage.classList.remove('is-panning');
+    });
+
+    // Dragging on the navigator recenters the view on the picked image point.
+    let navDrag = false;
+    const navTo = (e: PointerEvent) => {
+      const nb = nav.getBoundingClientRect();
+      const { width: W, height: H } = stageSize();
+      tx = W / 2 - ((e.clientX - nb.left) / nb.width) * iw * scale;
+      ty = H / 2 - ((e.clientY - nb.top) / nb.height) * ih * scale;
+      clampView();
+      render();
+    };
+    nav.addEventListener('pointerdown', (e) => {
+      nav.setPointerCapture(e.pointerId);
+      navDrag = true;
+      navTo(e);
+    });
+    nav.addEventListener('pointermove', (e) => {
+      if (navDrag) navTo(e);
+    });
+    nav.addEventListener('pointerup', () => (navDrag = false));
+    nav.addEventListener('pointercancel', () => (navDrag = false));
+  }
+</script>

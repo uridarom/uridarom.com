@@ -9,6 +9,7 @@ const photos = defineCollection({
     category: z.string().optional(),
     image: image(),
     date: z.date().optional(),
+    priority: z.number().default(1),
     acquisition: z.string().optional(),
     creative: z.string().optional(),
     body: z.string().optional(),

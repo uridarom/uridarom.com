@@ -2,29 +2,28 @@
 import PageLayout from '../../layouts/PageLayout.astro';
 import SectionToggle from '../../components/SectionToggle.astro';
 import MasonryGrid from '../../components/MasonryGrid.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+type Photo = CollectionEntry<'photos'>;
+const newestFirst = (a: Photo, b: Photo) =>
+  (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0);
 
 const allPhotos = await getCollection('photos');
-// Sort newest first
-const chronologicallySorted = allPhotos.sort((a, b) => {
-  return (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0);
-});
+const inCategory = (category: string) => allPhotos.filter((p) => p.data.category === category);
 
-const cols: (typeof chronologicallySorted)[] = [[], [], []];
-chronologicallySorted.forEach((photo, i) => {
-  cols[i % 3].push(photo)
-  console.log(photo.id, i, i % 3)
-});
-const photos = [...cols[0], ...cols[1], ...cols[2]];
+const astrophotography = inCategory('astrophotography')
+  .sort((a, b) => b.data.priority - a.data.priority || newestFirst(a, b));
+const photography = inCategory('photography').sort(newestFirst);
 ---
 <PageLayout title="Photos" activePage="photos">
   <SectionToggle />
-  <MasonryGrid photos={photos} />
+  <MasonryGrid photos={astrophotography} category="astrophotography" />
+  <MasonryGrid photos={photography} category="photography" />
 </PageLayout>
 
 <script>
   const buttons = document.querySelectorAll<HTMLButtonElement>('[data-category]');
-  const items = document.querySelectorAll<HTMLElement>('#masonry-grid [data-category]');
+  const grids = document.querySelectorAll<HTMLElement>('[data-grid]');
 
   const url = new URL(window.location.href);
   const initialCategory = url.searchParams.get('category') || 'astrophotography';
@@ -42,8 +41,8 @@ const photos = [...cols[0], ...cols[1], ...cols[2]];
       btn.style.opacity = isActive ? '1' : '0.4';
     });
 
-    items.forEach((item) => {
-      item.style.display = item.dataset.category === category ? 'block' : 'none';
+    grids.forEach((grid) => {
+      grid.style.display = grid.dataset.grid === category ? '' : 'none';
     });
   }
 
