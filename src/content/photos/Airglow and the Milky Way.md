@@ -1,3 +1,3 @@
 ---
-priority: 2
+priority: 6
 ---
